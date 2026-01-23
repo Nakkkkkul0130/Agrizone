@@ -3,7 +3,7 @@ services:
     name: agrizone
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn agrizone.wsgi:application"
+    startCommand: "gunicorn agrizone.wsgi:application --timeout 120 --workers 1"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
