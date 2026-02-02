@@ -1,6 +1,6 @@
 # Agrizone Django - Smart Farming Platform
 
-A comprehensive Django-based agricultural platform with AI-powered features including crop recommendation, weather forecasting, disease detection, and an intelligent chatbot assistant.
+A comprehensive Django-based agricultural platform with AI-powered features including crop recommendation, weather forecasting, disease detection, and an intelligent chatbot assistants.
 
 ## Features
 
