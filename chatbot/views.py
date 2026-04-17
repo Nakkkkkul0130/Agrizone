@@ -6,7 +6,7 @@ from .models import ChatMessage
 import json
 import datetime
 import os
-import google.generativeai as genai
+import google.genai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -68,33 +68,24 @@ def get_ai_response(user_message):
 def get_gemini_response(user_message):
     """Get response from Google Gemini API"""
     try:
-        # Get Gemini API key
         api_key = os.getenv('GEMINI_API_KEY')
         
         if not api_key or api_key == 'your-gemini-api-key-here':
             return None
         
-        # Configure Gemini
-        genai.configure(api_key=api_key)
+        # Configure new google-genai client
+        client = genai.Client(api_key=api_key)
         
-        # Use the correct model name
-        model = genai.GenerativeModel(
-            model_name='gemini-1.5-flash',
-            generation_config={
-                'temperature': 0.7,
-                'max_output_tokens': 500,
-            }
-        )
-        
-        # Create agricultural expert prompt
         prompt = f"""You are AgriGPT, an expert agricultural AI assistant. Provide specific, practical farming advice with exact details (fertilizer ratios, pesticide names, dosages, timing).
 
 Question: {user_message}
 
 Answer (be specific and actionable):"""
         
-        # Generate response
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-1.5-flash',
+            contents=prompt
+        )
         
         if response and response.text:
             return response.text.strip()
